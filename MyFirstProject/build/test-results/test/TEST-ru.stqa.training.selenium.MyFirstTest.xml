@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.training.selenium.MyFirstTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-19T12:21:34" hostname="WIN-41KHOD2TO9B" time="3.033">
+  <properties/>
+  <testcase name="myFirstTest" classname="ru.stqa.training.selenium.MyFirstTest" time="3.033"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Starting ChromeDriver 90.0.4430.24 (4c6d850f087da467d926e8eddb76550aed655991-refs/branch-heads/4430@{#429}) on port 8588
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+мая 19, 2021 3:21:36 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+]]></system-err>
+</testsuite>
