@@ -11,7 +11,6 @@ public class AutorizationTests extends TestBase {
 
     String username = "admin";
     String password = "admin";
-    String adminPageURL = "http://localhost/litecart/admin/";
 
     @Test
     public void logInAsAmin() {
