@@ -20,14 +20,6 @@ public class AutorizationTests extends TestBase {
         driver.findElement(By.name("password")).sendKeys(password);
         driver.findElement(By.name("login")).click();
         Assert.assertTrue(driver.findElement(By.xpath("//img[@title='My Store']")).isDisplayed());
-
-        driver.findElement(By.xpath("//div[@id='box-apps-menu-wrapper']//li/a//span[text()='Users']/parent::a")).click();
-        wait.until(textToBePresentInElement(driver.findElement(By.xpath("//h1")), "Users"));
-
-        driver.findElement(By.xpath("//div[@id='box-apps-menu-wrapper']//li/a//span[text()='Orders']/parent::a")).click();
-        wait.until(textToBePresentInElement(driver.findElement(By.xpath("//h1")), "Orders"));
-
-        driver.findElement(By.xpath("//a[@title='Logout']")).click();
-        Assert.assertTrue(driver.findElement(By.name("username")).isDisplayed());
     }
+
 }
