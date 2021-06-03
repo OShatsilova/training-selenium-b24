@@ -21,7 +21,7 @@ public class TestBase {
         options.addArguments("start-fullscreen");
 
         driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, 1000);
+        wait = new WebDriverWait(driver, 10);
 
         Runtime.getRuntime().addShutdownHook(
                 new Thread(() -> {

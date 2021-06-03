@@ -3,16 +3,23 @@ package ru.stqa.training.selenium.litecart;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import ru.stqa.training.selenium.TestBase;
 
+import java.io.File;
+import java.util.Random;
+
 public class ProductsTests extends TestBase {
+
+    AutorizationTests autorizationTests = new AutorizationTests();
+    final Random random = new Random();
 
     String productFromMainPageLocator = "div#box-campaigns ul li";
     String regularPriceValueLocator = "s.regular-price";
     String campaignPriceValueLocator = "strong.campaign-price";
     String productFromProductPageLocator = "div#box-product";
-
 
     @Test
     public void checkProduct_A() {
@@ -82,6 +89,50 @@ public class ProductsTests extends TestBase {
         WebElement regularPriceFromProductPage = productFromProductPage.findElement(By.cssSelector(regularPriceValueLocator));
         WebElement campaignPriceFromProductPage = productFromProductPage.findElement(By.cssSelector(campaignPriceValueLocator));
         checkElementsFontSize(regularPriceFromProductPage, campaignPriceFromProductPage);
+    }
+
+    @Test
+    public void addNewProduct() {
+        autorizationTests.logInAsAmin();
+        driver.findElement(By.xpath("//a[contains(@href, 'catalog')]")).click();
+        driver.findElement(By.xpath("//a[contains(@href,'edit_product')]")).click();
+//        заполнение данных на вкладке General
+        driver.findElement(By.xpath("//a[.='General']")).click();
+        driver.findElement(By.xpath("//input[@name='status']")).click();
+        String unicNum = String.valueOf(random.nextInt());
+        String newProductName = "duck".concat(unicNum);
+        driver.findElement(By.xpath("//input[@name='name[en]']")).sendKeys(newProductName);
+        driver.findElement(By.xpath("//input[@name='code']")).sendKeys(unicNum);
+        driver.findElement(By.xpath("//input[@name='categories[]' and @value='1']")).click();
+        driver.findElement(By.xpath("//td[.='Female']/..//input")).click();
+        driver.findElement(By.xpath("//input[@name='quantity']")).clear();
+        driver.findElement(By.xpath("//input[@name='quantity']")).sendKeys("5,00");
+        driver.findElement(By.xpath("//input[@name='new_images[]']")).sendKeys(new File("./src/test/resources/images.png").getAbsolutePath());
+        driver.findElement(By.xpath("//input[@name='date_valid_from']")).sendKeys("01062021");
+        driver.findElement(By.xpath("//input[@name='date_valid_to']")).sendKeys("01062022");
+//        заполнение данных на вкладке Information
+        driver.findElement(By.xpath("//a[.='Information']")).click();
+        new Select(driver.findElement(By.cssSelector("select[name=manufacturer_id]"))).selectByValue("1");
+        driver.findElement(By.xpath("//input[@name='keywords']")).sendKeys("keywords");
+        driver.findElement(By.xpath("//input[@name='short_description[en]']")).sendKeys("short description");
+        driver.findElement(By.xpath("//div[@class='trumbowyg-editor']")).click();
+        driver.findElement(By.xpath("//div[@class='trumbowyg-editor']")).sendKeys("description");
+        driver.findElement(By.xpath("//input[@name='head_title[en]']")).sendKeys("head title");
+        driver.findElement(By.xpath("//input[@name='meta_description[en]']")).sendKeys("meta description");
+//        заполнение данных на вкладке Prices
+        driver.findElement(By.xpath("//a[.='Prices']")).click();
+        driver.findElement(By.xpath("//input[@name='purchase_price']")).clear();
+        driver.findElement(By.xpath("//input[@name='purchase_price']")).sendKeys("55");
+        new Select(driver.findElement(By.cssSelector("select[name=purchase_price_currency_code]"))).selectByValue("USD");
+        driver.findElement(By.xpath("//input[@name='prices[USD]']")).sendKeys("555");
+        driver.findElement(By.xpath("//h2[.='Campaigns']/..//i")).click();
+        driver.findElement(By.xpath("//input[contains(@name, 'start_date')]")).sendKeys("27092013" + Keys.TAB + "0245PM");
+        driver.findElement(By.xpath("//input[contains(@name, 'end_date')]")).sendKeys("28092013" + Keys.TAB + "0245PM");
+        driver.findElement(By.xpath("//input[contains(@name, 'percentage')]")).sendKeys("5");
+        driver.findElement(By.xpath("//button[@name='save']")).click();
+
+        Assert.assertTrue(String.format("В каталоге отсутствует новый продукт: %s", newProductName),
+                driver.findElement(By.xpath(String.format("//table[@class='dataTable']//tr//a[.='%s']", newProductName))).isDisplayed());
     }
 
     private void checkElementRGB(WebElement element) {
