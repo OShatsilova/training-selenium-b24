@@ -12,3 +12,8 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+MyFirstProject/src/test/java/ru/stqa/training/selenium/litecart/Temp.java
+*.bin
+MyFirstProject/build/test-results/test/binary/output.bin
+MyFirstProject/.idea/gradle.xml
+MyFirstProject/build/test-results/test/binary/output.bin.idx
