@@ -5,8 +5,10 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.training.selenium.TestBase;
+
 import java.util.Random;
 
 public class RegistrationTests extends TestBase {
@@ -37,11 +39,12 @@ public class RegistrationTests extends TestBase {
         customerForm.findElement(By.cssSelector("input[name=address1]")).sendKeys(address1);
         customerForm.findElement(By.cssSelector("input[name=postcode]")).sendKeys(postcode);
         customerForm.findElement(By.cssSelector("input[name=city]")).sendKeys(city);
-        Select selectCountry = new Select(customerForm.findElement(By.cssSelector("select[name=country_code]")));
-        selectCountry.selectByVisibleText(countryCode);
-        Select selectZone = new Select(customerForm.findElement(By.cssSelector("select[name=zone_code]")));
         JavascriptExecutor js =(JavascriptExecutor)driver;;
-        js.executeScript("arguments[0].selectedIndex=3; arguments[0].dispatchEvent(new Event('change'))", selectZone);
+        Select selectCountry = new Select(customerForm.findElement(By.cssSelector("select[name=country_code]")));
+        js.executeScript("arguments[0].selectedIndex=224; arguments[0].dispatchEvent(new Event('change'))", selectCountry);
+        Select selectZone = new Select(customerForm.findElement(By.cssSelector("select[name=zone_code]")));
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("select[name=zone_code][disabled='disabled']")));
+        js.executeScript("arguments[0].selectedIndex=1; arguments[0].dispatchEvent(new Event('change'))", selectZone);
         customerForm.findElement(By.cssSelector("input[name=email]")).sendKeys(userName.concat(emailPart));
         customerForm.findElement(By.cssSelector("input[name=phone]")).sendKeys((phone));
         customerForm.findElement(By.cssSelector("input[name=password]")).sendKeys(userPassword);
