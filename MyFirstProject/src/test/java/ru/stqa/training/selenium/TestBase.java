@@ -2,6 +2,7 @@ package ru.stqa.training.selenium;
 
 import org.junit.After;
 import org.junit.Before;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -35,5 +36,9 @@ public class TestBase {
     public void stop() {
 //        driver.quit();
 //        driver = null;
+    }
+
+    public static boolean isElementPresent(By locator) {
+        return driver.findElements(locator).size() > 0;
     }
 }
