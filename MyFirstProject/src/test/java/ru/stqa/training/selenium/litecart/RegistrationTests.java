@@ -39,12 +39,10 @@ public class RegistrationTests extends TestBase {
         customerForm.findElement(By.cssSelector("input[name=address1]")).sendKeys(address1);
         customerForm.findElement(By.cssSelector("input[name=postcode]")).sendKeys(postcode);
         customerForm.findElement(By.cssSelector("input[name=city]")).sendKeys(city);
-        JavascriptExecutor js =(JavascriptExecutor)driver;;
-        Select selectCountry = new Select(customerForm.findElement(By.cssSelector("select[name=country_code]")));
-        js.executeScript("arguments[0].selectedIndex=224; arguments[0].dispatchEvent(new Event('change'))", selectCountry);
-        Select selectZone = new Select(customerForm.findElement(By.cssSelector("select[name=zone_code]")));
-        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("select[name=zone_code][disabled='disabled']")));
-        js.executeScript("arguments[0].selectedIndex=1; arguments[0].dispatchEvent(new Event('change'))", selectZone);
+        driver.findElement(By.cssSelector("span.select2-selection__arrow")).click();
+        driver.findElement(By.xpath("//li[.='United States']")).click();
+        customerForm.findElement(By.cssSelector("select[name=zone_code]")).click();
+        customerForm.findElement(By.cssSelector("select[name=zone_code]")).findElement(By.xpath("./option[2]")).click();
         customerForm.findElement(By.cssSelector("input[name=email]")).sendKeys(userName.concat(emailPart));
         customerForm.findElement(By.cssSelector("input[name=phone]")).sendKeys((phone));
         customerForm.findElement(By.cssSelector("input[name=password]")).sendKeys(userPassword);
