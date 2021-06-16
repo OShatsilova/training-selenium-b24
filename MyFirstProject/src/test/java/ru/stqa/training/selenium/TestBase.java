@@ -20,6 +20,7 @@ public class TestBase {
         }
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-fullscreen");
+        options.setExperimentalOption("w3c", false);
 
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, 10);
