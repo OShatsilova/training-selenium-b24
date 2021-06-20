@@ -1,10 +1,11 @@
-package ru.stqa.training.selenium.litecart;
+package ru.stqa.training.selenium.litecart.tests;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.stqa.training.selenium.TestBase;
+import ru.stqa.training.selenium.litecart.tests.AutorizationTests;
 
 import java.util.ArrayList;
 import java.util.List;

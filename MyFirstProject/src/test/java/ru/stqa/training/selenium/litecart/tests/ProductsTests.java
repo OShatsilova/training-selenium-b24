@@ -1,14 +1,14 @@
-package ru.stqa.training.selenium.litecart;
+package ru.stqa.training.selenium.litecart.tests;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.training.selenium.TestBase;
+import ru.stqa.training.selenium.litecart.pages.BasketPage;
+import ru.stqa.training.selenium.litecart.pages.MainPage;
 
 import java.io.File;
 import java.util.Random;
@@ -140,31 +140,8 @@ public class ProductsTests extends TestBase {
     @Test
     public void addProductsIntoBasket() {
         for (int i = 1; i < 4; i++)
-            addProduct();
-        driver.findElement(By.linkText("Checkout »")).click();
-        while (isElementPresent(By.cssSelector("button[name=remove_cart_item]"))) {
-            wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[name=remove_cart_item]")));
-            WebElement table = driver.findElement(By.cssSelector("div#checkout-summary-wrapper tbody"));
-            driver.findElement(By.cssSelector("button[name=remove_cart_item]")).click();
-            wait.until(ExpectedConditions.stalenessOf(table));
-        }
-        Assert.assertTrue("Не все товары удалены из корзины", isElementPresent(By.linkText("<< Back")));
-    }
-
-
-    private void addProduct() {
-        driver.get("http://localhost/litecart/en/");
-        driver.findElement(By.cssSelector("div#box-most-popular li")).click();
-        WebElement productBacketcountBefor = driver.findElement(By.cssSelector("div#cart-wrapper span.quantity"));
-        int count = Integer.parseInt(productBacketcountBefor.getText());
-        if (isElementPresent(By.cssSelector("td.options select"))) {
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            Select optionsSize = new Select(driver.findElement(By.xpath("//select[@name='options[Size]']")));
-            js.executeScript("arguments[0].selectedIndex=1; arguments[0].dispatchEvent(new Event('change'))", optionsSize);
-        }
-        driver.findElement(By.cssSelector("button[name=add_cart_product]")).click();
-        WebElement productBacketcountAfter = driver.findElement(By.cssSelector("div#cart-wrapper span.quantity"));
-        wait.until(ExpectedConditions.textToBePresentInElement(productBacketcountAfter, String.valueOf(count + 1)));
+            new MainPage().open().pickFirstOfMostPopularProducts().addProductIntoTheBacket();
+        new BasketPage().open().deleteAllProductsFromTheBasket();
     }
 
     private void checkElementRGB(WebElement element) {

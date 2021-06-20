@@ -1,4 +1,4 @@
-package ru.stqa.training.selenium.litecart;
+package ru.stqa.training.selenium.litecart.tests;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,8 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.stqa.training.selenium.TestBase;
+import ru.stqa.training.selenium.litecart.tests.AutorizationTests;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
